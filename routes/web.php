@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Student\TimetableController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,7 +11,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('student')
         ->name('student.')
         ->group(function () {
-            Route::get('timetable', [TimetableController::class, 'index'])
+            Route::get('timetable', [\App\Http\Controllers\Student\TimetableController::class, 'index'])
+                ->name('timetable');
+        });
+
+    Route::prefix('teacher')
+        ->name('teacher.')
+        ->group(function () {
+            Route::get('timetable', [\App\Http\Controllers\Teacher\TimetableController::class, 'index'])
                 ->name('timetable');
         });
 });
