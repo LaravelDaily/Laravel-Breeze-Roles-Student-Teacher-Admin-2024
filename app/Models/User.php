@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getRedirectRouteName(): string
+    {
+        return match ((int) $this->role_id) {
+            1 => 'student.timetable',
+            2 => 'teacher.timetable',
+        };
+    }
 }
