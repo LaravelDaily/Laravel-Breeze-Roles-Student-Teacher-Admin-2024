@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('student')
+        ->middleware('role:1')
         ->name('student.')
         ->group(function () {
             Route::get('timetable', [\App\Http\Controllers\Student\TimetableController::class, 'index'])
@@ -16,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
     Route::prefix('teacher')
+        ->middleware('role:2')
         ->name('teacher.')
         ->group(function () {
             Route::get('timetable', [\App\Http\Controllers\Teacher\TimetableController::class, 'index'])
