@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student;
 use App\Http\Controllers\Teacher;
+use App\Http\Controllers\Admin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->group(function () {
             Route::get('timetable', [Teacher\TimetableController::class, 'index'])
                 ->name('timetable');
+        });
+
+    Route::prefix('admin')
+        ->middleware('role:3')
+        ->name('admin.')
+        ->group(function () {
+            Route::get('user', [Admin\UserController::class, 'index'])
+                ->name('users');
         });
 });
 
